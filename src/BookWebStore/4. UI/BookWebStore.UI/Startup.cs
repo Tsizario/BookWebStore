@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification;
 using BookWebStore.BLL.Extensions;
 using BookWebStore.DAL.Extensions;
 
@@ -17,7 +18,14 @@ namespace BookWebStore.UI
             services.AddDalServices(_configuration);
             services.AddBllServices(_configuration);
 
-            services.AddRazorPages();
+            services.AddNotyf(config =>
+            {
+                config.DurationInSeconds = 3;
+                config.IsDismissable = true;
+                config.Position = NotyfPosition.BottomRight;
+                config.HasRippleEffect = true;
+            });
+
             services.AddMvc();
         }
 

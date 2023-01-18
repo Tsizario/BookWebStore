@@ -1,5 +1,7 @@
-﻿using BookWebStore.BLL.DTO.Category;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BookWebStore.BLL.DTO.Category;
 using BookWebStore.BLL.Services.CategoryService;
+using BookWebStore.Domain.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWebStore.UI.Controllers
@@ -8,12 +10,15 @@ namespace BookWebStore.UI.Controllers
     {
         private readonly ICategoryService _categories;
         private readonly ILogger<CategoryController> _logger;
+        private readonly INotyfService _toastNotification;
 
-        public CategoryController(ICategoryService _categories,
-            ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService categories,
+            ILogger<CategoryController> logger,
+            INotyfService toastNotification)
         {
-            this._categories = _categories;
+            _categories = categories;
             _logger = logger;
+            _toastNotification = toastNotification;
         }
         
         // GET
@@ -48,7 +53,9 @@ namespace BookWebStore.UI.Controllers
 
             if (category.Name == category.DisplayOrder.ToString())
             {
-                ModelState.AddModelError("Name", "The order's number cannot exactly match the same name");
+                _toastNotification.Error(Errors.CategorySameNumber);
+
+                //ModelState.AddModelError("Name", "The order's number cannot exactly match the same name");
 
                 return View(category);
             }
@@ -57,8 +64,12 @@ namespace BookWebStore.UI.Controllers
 
             if (!addedItem.Success)
             {
+                _toastNotification.Error(addedItem.Error);
+
                 return RedirectToAction(nameof(Index));
             }
+
+            _toastNotification.Success(Notifications.CategoryCreateSuccess);
 
             return RedirectToAction(nameof(Index));
         }
@@ -88,8 +99,9 @@ namespace BookWebStore.UI.Controllers
 
             if (category.Name == category.DisplayOrder.ToString())
             {
-                // set the same name as on view/page (for example, 'Name' property of model as here)
-                ModelState.AddModelError("Name", "The order's number cannot exactly match the name");
+                _toastNotification.Error(Errors.CategorySameNumber);
+                //// set the same name as on view/page (for example, 'Name' property of model as here)
+                //ModelState.AddModelError("Name", "The order's number cannot exactly match the name");
 
                 return View(category);
             }
@@ -98,8 +110,12 @@ namespace BookWebStore.UI.Controllers
 
             if (!updatedItem.Success)
             {
+                _toastNotification.Error(updatedItem.Error);
+
                 return RedirectToAction("Edit", updatedItem.Value);
             }
+
+            _toastNotification.Success(Notifications.CategoryUpdateSuccess);
 
             return RedirectToAction("Index");
         }
@@ -127,8 +143,12 @@ namespace BookWebStore.UI.Controllers
 
             if (!deletedItem.Success)
             {
+                _toastNotification.Error(deletedItem.Error);
+
                 return View(nameof(Index));
             }
+
+            _toastNotification.Success(Notifications.CategoryDeleteSuccess);
 
             return RedirectToAction("Index");
         }
