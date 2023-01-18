@@ -21,7 +21,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
         public async Task<ServiceResult<IEnumerable<CategoryDto>>> GetAllCategories()
         {           
-            var categories = await _repository.GetAllEntitiesAsync();
+            var categories = await _repository.GetAllItemsAsync();
 
             var mappedDtos = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
@@ -32,7 +32,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
         public async Task<ServiceResult<CategoryDto>> GetCategory(Guid? id)
         {
-            var category = await _repository.GetByIdAsync(id);
+            var category = await _repository.GetItemAsync(p => p.Id == id);
 
             var mapped = _mapper.Map<CategoryDto>(category);
 
@@ -45,7 +45,7 @@ namespace BookWebStore.BLL.Services.CategoryService
         {
             var mapped = _mapper.Map<Category>(createdDto);
 
-            var result = await _repository.AddAsync(mapped);
+            var result = await _repository.AddItemAsync(mapped);
 
             return result
                 ? ServiceResult<bool>.CreateSuccess(result)
@@ -65,7 +65,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
         public async Task<ServiceResult<bool>> DeleteCategory(Guid id)
         {
-            var result = await _repository.DeleteAsync(id);
+            var result = await _repository.RemoveItemAsync(id);
 
             return result
                 ? ServiceResult<bool>.CreateSuccess(result)
