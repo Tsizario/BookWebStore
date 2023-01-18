@@ -2,7 +2,7 @@
 
 namespace BookWebStore.Domain.Entities
 {
-    public class Category : BaseEntity
+    public class Category : DbEntity
     {
         public string Name { get; set; }
 

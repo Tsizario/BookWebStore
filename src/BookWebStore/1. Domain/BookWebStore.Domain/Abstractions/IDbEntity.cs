@@ -2,7 +2,7 @@
 
 namespace BookWebStore.Domain.Abstractions
 {
-    public interface IBaseEntity
+    public interface IDbEntity
     {
         [Key]
         Guid Id { get; set; }
