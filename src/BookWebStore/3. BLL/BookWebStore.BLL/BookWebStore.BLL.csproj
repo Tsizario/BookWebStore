@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\1. Domain\BookWebStore.Domain\BookWebStore.Domain.csproj" />
+    <ProjectReference Include="..\..\2. DAL\BookWebStore.DAL\BookWebStore.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
