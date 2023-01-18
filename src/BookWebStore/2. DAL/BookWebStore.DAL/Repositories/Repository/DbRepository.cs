@@ -9,7 +9,7 @@ namespace BookWebStore.DAL.Repositories.Repository
         where T : class, IDbEntity
     {
         private readonly ApplicationDbContext _dbContext;
-        internal DbSet<T> _dbSet;        
+        private readonly DbSet<T> _dbSet;        
 
         public DbRepository(ApplicationDbContext dbContext)
         {
@@ -68,45 +68,28 @@ namespace BookWebStore.DAL.Repositories.Repository
         {
             await _dbSet.AddAsync(entity);
 
-            return await SaveChangesAsync() > 0;
+            return true;
         }
 
         public async Task<bool> RemoveItemAsync(Guid id)
         {
             T candidate = await AllItems.FirstOrDefaultAsync(e => e.Id == id);
 
-            if (candidate != null)
+            if (candidate == null)
             {
                 return false;
             }
 
             _dbSet.Remove(candidate);
 
-            return await SaveChangesAsync() > 0;
+            return true;
         }
 
-        public async Task<bool> RemoveItemsAsync(IEnumerable<T> entities)
+        public Task RemoveItemsAsync(IEnumerable<T> entities)
         {
-            if (entities == null)
-            {
-                return false;
-            }
-
             _dbSet.RemoveRange(entities);
 
-            return await SaveChangesAsync() > 0;
-        }
-
-        private async Task<int> SaveChangesAsync()
-        {
-            try
-            {
-                return await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                return -1;
-            }
+            return Task.CompletedTask;
         }
     }
 }

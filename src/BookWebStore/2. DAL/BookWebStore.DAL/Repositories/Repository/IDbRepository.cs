@@ -14,6 +14,6 @@ namespace BookWebStore.DAL.Repositories.Abstractions
 
         Task<bool> RemoveItemAsync(Guid id);
 
-        Task<bool> RemoveItemsAsync(IEnumerable<T> entities);
+        Task RemoveItemsAsync(IEnumerable<T> entities);
     }
 }
