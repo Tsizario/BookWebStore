@@ -13,7 +13,7 @@
     <header class="bg-dark">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand fs-3" asp-controller="App" asp-action="Home">
+                <a class="navbar-brand fs-3" >
                     <i class=""></i>
                     WebStore
                 </a>
@@ -23,13 +23,13 @@
                 <div class="collapse navbar-collapse fs-5" id="navbarColor02">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Home" asp-action="Index">
+                            <a class="nav-link active" asp-area="Customer" asp-controller="Home" asp-action="Index">
                                 Home
                                 <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Category" asp-action="Index">Category</a>
+                            <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                         </li>
                        @* <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>

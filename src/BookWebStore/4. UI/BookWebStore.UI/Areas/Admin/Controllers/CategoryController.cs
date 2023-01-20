@@ -4,7 +4,7 @@ using BookWebStore.BLL.Services.CategoryService;
 using BookWebStore.Domain.Constants;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookWebStore.UI.Controllers
+namespace BookWebStore.UI.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
@@ -20,7 +20,7 @@ namespace BookWebStore.UI.Controllers
             _logger = logger;
             _toastNotification = toastNotification;
         }
-        
+
         // GET
         [HttpGet]
         public async Task<ActionResult> Index()
@@ -37,7 +37,7 @@ namespace BookWebStore.UI.Controllers
 
         [HttpGet]
         public async Task<ActionResult> Create()
-        {           
+        {
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace BookWebStore.UI.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        
+
         [HttpGet]
         public async Task<ActionResult> Edit(Guid? id)
         {
@@ -112,12 +112,12 @@ namespace BookWebStore.UI.Controllers
             {
                 _toastNotification.Error(updatedItem.Error);
 
-                return RedirectToAction("Edit", updatedItem.Value);
+                return RedirectToAction(nameof(Edit), updatedItem.Value);
             }
 
             _toastNotification.Success(Notifications.CategoryUpdateSuccess);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -127,7 +127,7 @@ namespace BookWebStore.UI.Controllers
 
             if (!category.Success)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
 
             return View(category.Value);
@@ -150,7 +150,7 @@ namespace BookWebStore.UI.Controllers
 
             _toastNotification.Success(Notifications.CategoryDeleteSuccess);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
