@@ -14,11 +14,13 @@ namespace BookWebStore.BLL.Extensions
             var mapperConfig = new MapperConfiguration(m =>
             {
                 m.AddProfile<CategoryProfile>();
+                m.AddProfile<CoverTypeProfile>();
             });
 
             services.AddSingleton(s => mapperConfig.CreateMapper());
 
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICoverTypeService, CoverTypeService>();
 
             return services;
         }

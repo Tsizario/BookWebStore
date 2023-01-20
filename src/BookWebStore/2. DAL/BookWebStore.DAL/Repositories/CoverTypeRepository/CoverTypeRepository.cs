@@ -13,9 +13,11 @@ namespace BookWebStore.DAL.Repositories.CoverTypeRepository
             _dbContext = dbContext;
         }
 
-        public Task<bool> UpdateAsync(CoverType item)
+        public async Task<bool> UpdateAsync(CoverType item)
         {
-            throw new NotImplementedException();
+            _dbContext.CoverTypes.Update(item);
+
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }

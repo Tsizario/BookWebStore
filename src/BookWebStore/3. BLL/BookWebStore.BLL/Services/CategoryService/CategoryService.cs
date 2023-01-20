@@ -25,9 +25,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
             var mappedDtos = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
-            return mappedDtos is not null
-                ? ServiceResult<IEnumerable<CategoryDto>>.CreateSuccess(mappedDtos)
-                : ServiceResult<IEnumerable<CategoryDto>>.CreateFailure(Errors.CategoriesNotFound);
+            return ServiceResult<IEnumerable<CategoryDto>>.CreateSuccess(mappedDtos);
         }
 
         public async Task<ServiceResult<CategoryDto>> GetCategory(Guid? id)
@@ -60,7 +58,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
             return result
                 ? ServiceResult<bool>.CreateSuccess(result)
-                : ServiceResult<bool>.CreateFailure(Errors.CategoryAddingError);
+                : ServiceResult<bool>.CreateFailure(Errors.CategoryDoesNotExist);
         }
 
         public async Task<ServiceResult<bool>> DeleteCategory(Guid id)
@@ -69,7 +67,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
             return result
                 ? ServiceResult<bool>.CreateSuccess(result)
-                : ServiceResult<bool>.CreateFailure(Errors.CategoryAddingError);
+                : ServiceResult<bool>.CreateFailure(Errors.CategoryDoesNotExist);
         }
     }
 }
