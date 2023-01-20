@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CategoryDto>
+﻿@model IEnumerable<CoverTypeDto>
 @{
     ViewData["Title"] = "Index";
 }
@@ -7,12 +7,12 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Category list</h2>
+            <h2 class="text-primary">Cover type List</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-outline-success">
+            <a asp-controller="CoverType" asp-action="Create" class="btn btn-outline-success">
                 <i class="fa fa-solid fa-circle-plus"></i>
-                    Create new category
+                    Create new cover type
             </a>
         </div>
     </div>
@@ -22,10 +22,7 @@
     <thead>
         <tr>
             <th>
-                Category Name
-            </th>
-            <th>
-                Display Order
+                Cover type name
             </th>
             <th>
                 Actions
@@ -33,23 +30,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model)
+        @foreach (var obj in Model)
         {
             <tr>
                 <td width="50%">
-                    @category.Name
-                </td>
-                <td width="30%">
-                    @category.DisplayOrder
+                    @obj.Name
                 </td>
                 <td>
                     <div class="d-flex justify-content-between">
-                        <a asp-controller="Category" asp-action="Edit" asp-route-id=@category.Id
+                        <a asp-controller="CoverType" asp-action="Edit" asp-route-id=@obj.Id
                             class="btn btn-outline-primary my-custom">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                     Edit
-                        </a> 
-                        <a asp-controller="Category" asp-action="Delete" asp-route-id=@category.Id
+                        </a>
+                        <a asp-controller="CoverType" asp-action="Delete" asp-route-id=@obj.Id
                             class="btn btn-outline-danger my-custom">
                                 <i class="fa-solid fa-trash"></i>
                                     Delete

@@ -1,5 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using BookWebStore.BLL.DTO.Category;
+using BookWebStore.BLL.DTO.CoverType;
 using BookWebStore.BLL.Services.CategoryService;
 using BookWebStore.Domain.Constants;
 using Microsoft.AspNetCore.Mvc;
@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookWebStore.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class CoverTypeController : Controller
     {
-        private readonly ICategoryService _categories;
+        private readonly ICoverTypeService _coverTypes;
         private readonly ILogger<CategoryController> _logger;
         private readonly INotyfService _toastNotification;
 
-        public CategoryController(ICategoryService categories,
+        public CoverTypeController(ICoverTypeService coverTypes,
             ILogger<CategoryController> logger,
             INotyfService toastNotification)
         {
-            _categories = categories;
+            _coverTypes = coverTypes;
             _logger = logger;
             _toastNotification = toastNotification;
         }
@@ -26,7 +26,7 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var allCategories = await _categories.GetAllCategories();
+            var allCategories = await _coverTypes.GetAllTypes();
 
             if (!allCategories.Success)
             {
@@ -45,23 +45,14 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CategoryCreateDto category)
+        public async Task<ActionResult> Create(CoverTypeDto coverType)
         {
             if (!ModelState.IsValid)
             {
-                return View(category);
+                return View(coverType);
             }
 
-            if (category.Name == category.DisplayOrder.ToString())
-            {
-                _toastNotification.Error(Errors.CategorySameNumber);
-
-                //ModelState.AddModelError("Name", "The order's number cannot exactly match the same name");
-
-                return View(category);
-            }
-
-            var addedItem = await _categories.AddCategory(category);
+            var addedItem = await _coverTypes.AddType(coverType);
 
             if (!addedItem.Success)
             {
@@ -70,7 +61,7 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            _toastNotification.Success(Notifications.CategoryCreateSuccess);
+            _toastNotification.Success(Notifications.CoverTypeCreateSuccess);
 
             return RedirectToAction(nameof(Index));
         }
@@ -78,36 +69,27 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(Guid? id)
         {
-            var category = await _categories.GetCategory(id);
+            var coverType = await _coverTypes.GetType(id);
 
-            if (!category.Success)
+            if (!coverType.Success)
             {
                 return NotFound();
             }
 
-            return View(category.Value);
+            return View(coverType.Value);
         }
 
         // PUT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(CategoryDto category)
+        public async Task<ActionResult> Edit(CoverTypeDto coverType)
         {
             if (!ModelState.IsValid)
             {
-                return View(category);
+                return View(coverType);
             }
 
-            if (category.Name == category.DisplayOrder.ToString())
-            {
-                _toastNotification.Error(Errors.CategorySameNumber);
-                //// set the same name as on view/page (for example, 'Name' property of model as here)
-                //ModelState.AddModelError("Name", "The order's number cannot exactly match the name");
-
-                return View(category);
-            }
-
-            var updatedItem = await _categories.UpdateCategory(category);
+            var updatedItem = await _coverTypes.UpdateType(coverType);
 
             if (!updatedItem.Success)
             {
@@ -116,7 +98,7 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Edit), updatedItem.Value);
             }
 
-            _toastNotification.Success(Notifications.CategoryUpdateSuccess);
+            _toastNotification.Success(Notifications.CoverTypeUpdateSuccess);
 
             return RedirectToAction(nameof(Index));
         }
@@ -124,14 +106,14 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(Guid? id)
         {
-            var category = await _categories.GetCategory(id);
+            var coverType = await _coverTypes.GetType(id);
 
-            if (!category.Success)
+            if (!coverType.Success)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(category.Value);
+            return View(coverType.Value);
         }
 
         // DELETE
@@ -140,7 +122,7 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var deletedItem = await _categories.DeleteCategory(id);
+            var deletedItem = await _coverTypes.DeleteType(id);
 
             if (!deletedItem.Success)
             {
@@ -149,7 +131,7 @@ namespace BookWebStore.UI.Areas.Admin.Controllers
                 return View(nameof(Index));
             }
 
-            _toastNotification.Success(Notifications.CategoryDeleteSuccess);
+            _toastNotification.Success(Notifications.CoverTypeDeleteSuccess);
 
             return RedirectToAction(nameof(Index));
         }
