@@ -68,7 +68,7 @@ namespace BookWebStore.DAL.Repositories.Repository
         {
             await _dbSet.AddAsync(entity);
 
-            return true;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> RemoveItemAsync(Guid id)
@@ -82,14 +82,14 @@ namespace BookWebStore.DAL.Repositories.Repository
 
             _dbSet.Remove(candidate);
 
-            return true;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
-        public Task RemoveItemsAsync(IEnumerable<T> entities)
+        public async Task<bool> RemoveItemsAsync(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
 
-            return Task.CompletedTask;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }
