@@ -7,12 +7,12 @@ using BookWebStore.Domain.Entities;
 
 namespace BookWebStore.BLL.Services.CategoryService
 {
-    public class ProductService : IProductService
+    public class CoverTypeService : ICoverTypeService
     {
         private readonly ICoverTypeRepository _repository;
         private readonly IMapper _mapper;
 
-        public ProductService(ICoverTypeRepository type,
+        public CoverTypeService(ICoverTypeRepository type,
             IMapper mapper)
         {
             _repository = type;

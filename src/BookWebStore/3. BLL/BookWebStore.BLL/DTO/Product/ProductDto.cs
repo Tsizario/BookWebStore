@@ -1,10 +1,8 @@
 ﻿using BookWebStore.BLL.DTO.Category;
 using BookWebStore.BLL.DTO.CoverType;
-using BookWebStore.Domain.Abstractions;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookWebStore.Domain.Entities
+namespace BookWebStore.BLL.DTO.Product
 {
     public class ProductDto
     {
@@ -23,15 +21,12 @@ namespace BookWebStore.Domain.Entities
 
         [Required]
         [Range(1, 10000)]
-        public double ListPrice { get; set; }
-
-        [Required]
-        [Range(1, 10000)]
         public double Price { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }
 
+        [Display(Name = "Category Id")]
         public Guid CategoryId { get; set; }
 
         public CategoryDto Category { get; set; }

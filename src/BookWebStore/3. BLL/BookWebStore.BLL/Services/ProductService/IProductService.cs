@@ -1,6 +1,5 @@
-﻿using BookWebStore.BLL.DTO.CoverType;
+﻿using BookWebStore.BLL.DTO.Product;
 using BookWebStore.BLL.Helpers;
-using BookWebStore.Domain.Entities;
 
 namespace BookWebStore.BLL.Services.ProductService
 {

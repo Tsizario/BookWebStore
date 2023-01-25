@@ -3,7 +3,7 @@ using BookWebStore.BLL.Helpers;
 
 namespace BookWebStore.BLL.Services.CategoryService
 {
-    public interface IProductService
+    public interface ICoverTypeService
     {
         Task<ServiceResult<IEnumerable<CoverTypeDto>>> GetAllTypes();
 
