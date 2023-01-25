@@ -18,7 +18,7 @@ namespace BookWebStore.DAL.Repositories.ProductRepository
             _mapper = mapper;
         }
 
-        public async Task<bool> Update(Product item)
+        public async Task<bool> UpdateAsync(Product item)
         {
             var objFromDb = GetItemAsync(p => p.Id == item.Id);
 
@@ -30,7 +30,7 @@ namespace BookWebStore.DAL.Repositories.ProductRepository
             await _mapper.Map(item, objFromDb);
             _dbContext.Entry(item).State = EntityState.Modified;
 
-            return true;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }

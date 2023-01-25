@@ -15,5 +15,14 @@ namespace BookWebStore.DAL
         public DbSet<CoverType> CoverTypes { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Product>()
+                .HasOne(category => category.Category);
+
+            builder.Entity<Product>()
+                .HasOne(type => type.CoverType);
+        }
     }
 }

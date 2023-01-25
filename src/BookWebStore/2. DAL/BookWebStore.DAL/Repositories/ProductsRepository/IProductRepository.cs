@@ -5,6 +5,6 @@ namespace BookWebStore.DAL.Repositories.ProductRepository
 {
     public interface IProductRepository : IDbRepository<Product>
     {
-        Task<bool> Update(Product item); 
+        Task<bool> UpdateAsync(Product item); 
     }
 }
