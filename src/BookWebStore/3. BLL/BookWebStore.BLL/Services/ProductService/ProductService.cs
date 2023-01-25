@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using BookWebStore.BLL.DTO.CoverType;
 using BookWebStore.BLL.Helpers;
 using BookWebStore.DAL.Repositories.CoverTypeRepository;
 using BookWebStore.Domain.Constants;
 using BookWebStore.Domain.Entities;
 
-namespace BookWebStore.BLL.Services.CategoryService
+namespace BookWebStore.BLL.Services.ProductService
 {
     public class ProductService : IProductService
     {
@@ -19,27 +18,27 @@ namespace BookWebStore.BLL.Services.CategoryService
             _mapper = mapper;
         }
 
-        public async Task<ServiceResult<IEnumerable<CoverTypeDto>>> GetAllTypes()
+        public async Task<ServiceResult<IEnumerable<ProductDto>>> GetAllProducts()
         {           
             var categories = await _repository.GetAllItemsAsync();
 
-            var mappedDtos = _mapper.Map<IEnumerable<CoverTypeDto>>(categories);
+            var mappedDtos = _mapper.Map<IEnumerable<ProductDto>>(categories);
 
-            return ServiceResult<IEnumerable<CoverTypeDto>>.CreateSuccess(mappedDtos);
+            return ServiceResult<IEnumerable<ProductDto>>.CreateSuccess(mappedDtos);
         }
 
-        public async Task<ServiceResult<CoverTypeDto>> GetType(Guid? id)
+        public async Task<ServiceResult<ProductDto>> GetProduct(Guid? id)
         {
             var category = await _repository.GetItemAsync(p => p.Id == id);
 
-            var mapped = _mapper.Map<CoverTypeDto>(category);
+            var mapped = _mapper.Map<ProductDto>(category);
 
             return mapped is not null
-                ? ServiceResult<CoverTypeDto>.CreateSuccess(mapped)
-                : ServiceResult<CoverTypeDto>.CreateFailure(Errors.CoverTypeNotFound);
+                ? ServiceResult<ProductDto>.CreateSuccess(mapped)
+                : ServiceResult<ProductDto>.CreateFailure(Errors.CoverTypeNotFound);
         }
 
-        public async Task<ServiceResult<bool>> AddType(CoverTypeDto createdDto)
+        public async Task<ServiceResult<bool>> AddProduct(ProductDto createdDto)
         {
             var mapped = _mapper.Map<CoverType>(createdDto);
 
@@ -50,7 +49,7 @@ namespace BookWebStore.BLL.Services.CategoryService
                 : ServiceResult<bool>.CreateFailure(Errors.CoverTypeAddingError);
         }
 
-        public async Task<ServiceResult<bool>> UpdateType(CoverTypeDto itemForUpdate)
+        public async Task<ServiceResult<bool>> UpdateProduct(ProductDto itemForUpdate)
         {
             var mapped = _mapper.Map<CoverType>(itemForUpdate);
 

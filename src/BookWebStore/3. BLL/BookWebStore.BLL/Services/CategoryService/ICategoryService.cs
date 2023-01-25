@@ -9,9 +9,9 @@ namespace BookWebStore.BLL.Services.CategoryService
 
         Task<ServiceResult<CategoryDto>> GetCategory(Guid? id);
 
-        Task<ServiceResult<bool>> AddCategory(CategoryCreateDto category);
+        Task<ServiceResult<bool>> AddCategory(CategoryCreateDto createDto);
 
-        Task<ServiceResult<bool>> UpdateCategory(CategoryDto category);
+        Task<ServiceResult<bool>> UpdateCategory(CategoryDto itemForUpdate);
 
         Task<ServiceResult<bool>> DeleteCategory(Guid id);
     }

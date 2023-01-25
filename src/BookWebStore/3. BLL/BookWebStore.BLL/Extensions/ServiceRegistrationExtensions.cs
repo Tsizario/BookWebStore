@@ -20,7 +20,7 @@ namespace BookWebStore.BLL.Extensions
             services.AddSingleton(s => mapperConfig.CreateMapper());
 
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ICoverTypeService, CoverTypeService>();
+            services.AddScoped<IProductService, ProductService>();
 
             return services;
         }
