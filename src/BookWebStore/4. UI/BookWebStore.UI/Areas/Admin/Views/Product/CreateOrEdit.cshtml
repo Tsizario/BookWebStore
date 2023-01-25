@@ -1,0 +1,73 @@
+﻿@model ProductViewModel
+<form method="post" asp-action="CreateOrEdit" enctype="multipart/form-data">
+    <div class="border p-3 mt-4">
+        <div class="row">
+            <div class="row pb-2">
+                <h2 class="text-primary">@(Model.ProductDto.Id != Guid.Empty ? "Update" : "Create") product</h2>
+                <hr />
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="ProductDto.Title"></label>
+                <input asp-for="ProductDto.Title" class="form-control" />
+                <span asp-validation-for="ProductDto.Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="ProductDto.Description"></label>
+                <textarea asp-for="ProductDto.Description" rows="3" class="form-control"></textarea>
+                <span asp-validation-for="ProductDto.Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group col-4">
+                <label asp-for="ProductDto.Author"></label>
+                <input asp-for="ProductDto.Author" class="form-control" />
+                <span asp-validation-for="ProductDto.Author" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group col-4">
+                <label asp-for="ProductDto.ISBN"></label>
+                <input asp-for="ProductDto.ISBN" class="form-control" />
+                <span asp-validation-for="ProductDto.ISBN" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group col-4">
+                <label asp-for="ProductDto.Price"></label>
+                <input asp-for="ProductDto.Price" class="form-control" />
+                <span asp-validation-for="ProductDto.Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="ProductDto.ImageUrl"></label>
+                <input type="file" class="form-control" />
+            </div>
+            <div class="mb-3 form-group col-6">
+                <label asp-for="ProductDto.CategoryId"></label>
+                <select asp-for="ProductDto.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                    <option disabled selected>--Select category--</option>
+                </select>
+                <span asp-validation-for="ProductDto.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group col-6">
+                <label asp-for="ProductDto.CoverTypeId"></label>
+                <select asp-for="ProductDto.CoverTypeId" asp-items="@Model.CoverTypeList" class="form-select">
+                    <option disabled selected>--Select cover type--</option>
+                </select>
+                <span asp-validation-for="ProductDto.CoverTypeId" class="text-danger"></span>
+            </div>
+            @if (Model.ProductDto.Id != Guid.Empty)
+            {
+                <button type="submit" class="btn btn-outline-success" style="width: 150px;">Update</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-outline-success" style="width: 150px;">Create</button>
+            }
+            
+            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary" style="width: 150px;">
+                Back to list
+            </a>
+        </div>
+    </div>
+    <div asp-validation-summary="ModelOnly"></div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }

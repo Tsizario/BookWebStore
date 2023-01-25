@@ -1,6 +1,4 @@
-﻿using BookWebStore.UI.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BookWebStore.UI.Areas.Customer.Controllers
 {

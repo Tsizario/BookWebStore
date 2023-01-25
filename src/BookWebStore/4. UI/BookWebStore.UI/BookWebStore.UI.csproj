@@ -35,7 +35,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\1. Domain\BookWebStore.Domain\BookWebStore.Domain.csproj" />
-    <ProjectReference Include="..\..\2. DAL\BookWebStore.DAL\BookWebStore.DAL.csproj" />
     <ProjectReference Include="..\..\3. BLL\BookWebStore.BLL\BookWebStore.BLL.csproj" />
   </ItemGroup>
 
