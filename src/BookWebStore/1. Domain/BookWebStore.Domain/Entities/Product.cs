@@ -13,8 +13,6 @@ namespace BookWebStore.Domain.Entities
 
         public string Author { get; set; }
 
-        public double ListPrice { get; set; }
-
         public double Price { get; set; }
 
         public string ImageUrl { get; set; }
