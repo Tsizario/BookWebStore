@@ -39,15 +39,17 @@ namespace BookWebStore.BLL.Services.CategoryService
                 : ServiceResult<CategoryDto>.CreateFailure(Errors.CategoryNotFound);
         }
 
-        public async Task<ServiceResult<bool>> AddCategory(CategoryCreateDto createdDto)
+        public async Task<ServiceResult<CategoryDto>> AddCategory(CategoryCreateDto createdDto)
         {
             var mapped = _mapper.Map<Category>(createdDto);
 
             var result = await _repository.AddItemAsync(mapped);
 
-            return result
-                ? ServiceResult<bool>.CreateSuccess(result)
-                : ServiceResult<bool>.CreateFailure(Errors.CategoryAddingError);
+            var resultDto = _mapper.Map<CategoryDto>(result);
+
+            return resultDto is not null
+                ? ServiceResult<CategoryDto>.CreateSuccess(resultDto)
+                : ServiceResult<CategoryDto>.CreateFailure(Errors.CategoryAddingError);
         }
 
         public async Task<ServiceResult<bool>> UpdateCategory(CategoryDto itemForUpdate)

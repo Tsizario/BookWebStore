@@ -1,9 +1,9 @@
 ﻿@model ProductViewModel
-<form method="post" asp-action="CreateOrEdit" enctype="multipart/form-data">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="border p-3 mt-4">
         <div class="row">
             <div class="row pb-2">
-                <h2 class="text-primary">@(Model.ProductDto.Id != null ? "Update" : "Create") product</h2>
+                <h2 class="text-primary">Create product</h2>
                 <hr />
             </div>
             <div class="mb-3 form-group">
@@ -33,7 +33,8 @@
             </div>
             <div class="mb-3 form-group">
                 <label asp-for="ProductDto.ImageUrl"></label>
-                <input type="file" id="uploadBox" class="form-control" />
+                <input type="file" id="uploadBox" name="file" class="form-control" />
+                <span asp-validation-for="ProductDto.ImageUrl" class="text-danger"></span>
             </div>
             <div class="mb-3 form-group col-6">
                 <label asp-for="ProductDto.CategoryId"></label>
@@ -48,16 +49,9 @@
                     <option disabled selected>--Select cover type--</option>
                 </select>
                 <span asp-validation-for="ProductDto.CoverTypeId" class="text-danger"></span>
-            </div>
-            @if (Model.ProductDto.Id != Guid.Empty)
-            {
-                <button type="submit" class="btn btn-outline-success" style="width: 150px;">Update</button>
-            }
-            else
-            {
-                <button type="submit" onclick="return ValidateInput()" class="btn btn-outline-success" style="width: 150px;">Create</button>
-            }
-            
+            </div>            
+
+            <button type="submit" class="btn btn-outline-success" style="width: 150px;">Create</button>       
             <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary" style="width: 150px;">
                 Back to list
             </a>
@@ -68,13 +62,6 @@
 
 @section Scripts {
     @{
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
-    <script>
-        function ValidateInput() {
-            if(document.getElementById("uploadBox").value=="") {
-                
-            }
-        }
-    </script>
 }

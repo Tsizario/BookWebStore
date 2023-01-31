@@ -64,11 +64,13 @@ namespace BookWebStore.DAL.Repositories.Repository
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<bool> AddItemAsync(T entity)
+        public async Task<T> AddItemAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
 
-            return await _dbContext.SaveChangesAsync() > 0;
+            await _dbContext.SaveChangesAsync();
+
+            return entity;
         }
 
         public async Task<bool> RemoveItemAsync(Guid id)

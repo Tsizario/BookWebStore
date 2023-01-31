@@ -14,5 +14,8 @@
         public const string ProductNotFound = "Product not found";
         public const string ProductAddingError = "Error while adding product";
         public const string ProductDoesNotExist = "Product doesnot exist";
+
+        public const string PhotoAddingError = "Error while adding photo";
+        public const string PhotoDoesNotExists = "The photo does not exists";
     }
 }

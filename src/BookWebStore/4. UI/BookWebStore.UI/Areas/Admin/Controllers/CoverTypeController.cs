@@ -1,6 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using BookWebStore.BLL.DTO.CoverType;
-using BookWebStore.BLL.Services.CategoryService;
+using BookWebStore.BLL.Services.CoverTypeService;
 using BookWebStore.Domain.Constants;
 using Microsoft.AspNetCore.Mvc;
 

@@ -60,6 +60,25 @@ namespace BookWebStore.DAL.Migrations
                     b.ToTable("CoverTypes");
                 });
 
+            modelBuilder.Entity("BookWebStore.Domain.Entities.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("BookWebStore.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -77,16 +96,16 @@ namespace BookWebStore.DAL.Migrations
                     b.Property<Guid>("CoverTypeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Description")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -100,6 +119,9 @@ namespace BookWebStore.DAL.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CoverTypeId");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique();
 
                     b.ToTable("Products");
                 });
@@ -118,9 +140,23 @@ namespace BookWebStore.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BookWebStore.Domain.Entities.Image", "Image")
+                        .WithOne("Product")
+                        .HasForeignKey("BookWebStore.Domain.Entities.Product", "ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
                     b.Navigation("CoverType");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("BookWebStore.Domain.Entities.Image", b =>
+                {
+                    b.Navigation("Product")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

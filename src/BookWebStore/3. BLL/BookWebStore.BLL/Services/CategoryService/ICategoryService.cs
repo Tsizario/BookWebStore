@@ -1,5 +1,6 @@
 ﻿using BookWebStore.BLL.DTO.Category;
 using BookWebStore.BLL.Helpers;
+using BookWebStore.Domain.Entities;
 
 namespace BookWebStore.BLL.Services.CategoryService
 {
@@ -9,7 +10,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
         Task<ServiceResult<CategoryDto>> GetCategory(Guid? id);
 
-        Task<ServiceResult<bool>> AddCategory(CategoryCreateDto createDto);
+        Task<ServiceResult<CategoryDto>> AddCategory(CategoryCreateDto createDto);
 
         Task<ServiceResult<bool>> UpdateCategory(CategoryDto itemForUpdate);
 

@@ -1,7 +1,7 @@
 ﻿using BookWebStore.BLL.DTO.CoverType;
 using BookWebStore.BLL.Helpers;
 
-namespace BookWebStore.BLL.Services.CategoryService
+namespace BookWebStore.BLL.Services.CoverTypeService
 {
     public interface ICoverTypeService
     {
@@ -9,7 +9,7 @@ namespace BookWebStore.BLL.Services.CategoryService
 
         Task<ServiceResult<CoverTypeDto>> GetType(Guid? id);
 
-        Task<ServiceResult<bool>> AddType(CoverTypeDto createdDto);
+        Task<ServiceResult<CoverTypeDto>> AddType(CoverTypeDto createdDto);
 
         Task<ServiceResult<bool>> UpdateType(CoverTypeDto itemForUpdate);
 

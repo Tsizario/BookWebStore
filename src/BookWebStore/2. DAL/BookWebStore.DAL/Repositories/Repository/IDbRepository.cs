@@ -10,7 +10,7 @@ namespace BookWebStore.DAL.Repositories.Abstractions
 
         Task<T> GetItemAsync(Expression<Func<T, bool>>? filter = null, bool tracked = true, string includeProps = null);
 
-        Task<bool> AddItemAsync(T entity);
+        Task<T> AddItemAsync(T entity);
 
         Task<bool> RemoveItemAsync(Guid id);
 

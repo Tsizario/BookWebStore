@@ -9,7 +9,7 @@ namespace BookWebStore.BLL.Services.ProductService
 
         Task<ServiceResult<ProductDto>> GetProduct(Guid? id);
 
-        Task<ServiceResult<bool>> AddProduct(ProductDto createdItem);
+        Task<ServiceResult<ProductDto>> AddProduct(ProductDto createdItem);
 
         Task<ServiceResult<bool>> UpdateProduct(ProductDto itemForUpdate);
 

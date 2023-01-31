@@ -5,7 +5,7 @@ using BookWebStore.DAL.Repositories.CoverTypeRepository;
 using BookWebStore.Domain.Constants;
 using BookWebStore.Domain.Entities;
 
-namespace BookWebStore.BLL.Services.CategoryService
+namespace BookWebStore.BLL.Services.CoverTypeService
 {
     public class CoverTypeService : ICoverTypeService
     {
@@ -39,15 +39,17 @@ namespace BookWebStore.BLL.Services.CategoryService
                 : ServiceResult<CoverTypeDto>.CreateFailure(Errors.CoverTypeNotFound);
         }
 
-        public async Task<ServiceResult<bool>> AddType(CoverTypeDto createdDto)
+        public async Task<ServiceResult<CoverTypeDto>> AddType(CoverTypeDto createdDto)
         {
             var mapped = _mapper.Map<CoverType>(createdDto);
 
             var result = await _repository.AddItemAsync(mapped);
 
-            return result
-                ? ServiceResult<bool>.CreateSuccess(result)
-                : ServiceResult<bool>.CreateFailure(Errors.CoverTypeAddingError);
+            var resultDto = _mapper.Map<CoverTypeDto>(createdDto);
+
+            return resultDto is not null
+                ? ServiceResult<CoverTypeDto>.CreateSuccess(resultDto)
+                : ServiceResult<CoverTypeDto>.CreateFailure(Errors.CoverTypeAddingError);
         }
 
         public async Task<ServiceResult<bool>> UpdateType(CoverTypeDto itemForUpdate)

@@ -7,7 +7,7 @@ namespace BookWebStore.Domain.Entities
     {
         public string Title { get; set; }
 
-        public int Description { get; set; }
+        public string Description { get; set; }
 
         public string ISBN { get; set; }
 
@@ -15,7 +15,9 @@ namespace BookWebStore.Domain.Entities
 
         public double Price { get; set; }
 
-        public string ImageUrl { get; set; }
+        public Guid ImageId { get; set; }
+
+        public Image Image { get; set; }
 
         public Guid CategoryId { get; set; }
 

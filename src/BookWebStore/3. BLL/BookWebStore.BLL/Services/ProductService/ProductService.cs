@@ -39,15 +39,17 @@ namespace BookWebStore.BLL.Services.ProductService
                 : ServiceResult<ProductDto>.CreateFailure(Errors.ProductNotFound);
         }
 
-        public async Task<ServiceResult<bool>> AddProduct(ProductDto createdDto)
+        public async Task<ServiceResult<ProductDto>> AddProduct(ProductDto createdDto)
         {
             var mapped = _mapper.Map<Product>(createdDto);
 
-            var result = await _repository.AddItemAsync(mapped);
+            var result = await _repository.AddItemAsync(mapped); 
 
-            return result
-                ? ServiceResult<bool>.CreateSuccess(result)
-                : ServiceResult<bool>.CreateFailure(Errors.ProductAddingError);
+            var resultDto = _mapper.Map<ProductDto>(result);
+
+            return resultDto is not null
+                ? ServiceResult<ProductDto>.CreateSuccess(resultDto)
+                : ServiceResult<ProductDto>.CreateFailure(Errors.ProductAddingError);
         }
 
         public async Task<ServiceResult<bool>> UpdateProduct(ProductDto itemForUpdate)
